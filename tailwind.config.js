@@ -7,6 +7,7 @@ export default {
         primary: "var(--color-primary)",
         greytone: "var(--color-greytone)",
         darkgreytone: "var(--color-darkgreytone)",
+        hoverblue: "var(--color-hoverblue)",
       },
     },
   },

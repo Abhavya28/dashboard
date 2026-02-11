@@ -1,5 +1,7 @@
 import './index.css'
 import Sidebar from './components/SideBar'
+import Footer from './components/Footer'
+
 import Customers from './pages/Customers/Customers'
 import CustomersView from './pages/Customers/CustomersView'
 import CustomersCreate from './pages/Customers/CustomersCreate'
@@ -19,36 +21,40 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 function App() {
   return (
     <Router>
-      <div className="flex h-screen bg-gray-100">
+      <div className="flex min-h-screen bg-gray-100">
+        
         {/* Sidebar */}
         <Sidebar />
 
-        <main className="flex-1 overflow-y-auto p-6">
-          <Routes>
-            {/* Dashboard */}
-            <Route path="/" element={<CRM />} />
+        {/* Right Section */}
+        <div className="flex flex-col flex-1">
+          
+          {/* Main Content */}
+          <main className="flex-1 p-6">
+            <Routes>
+              <Route path="/" element={<CRM />} />
 
-            {/* Customers */}
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/customers/view" element={<CustomersView />} />
-            <Route path="/customers/create" element={<CustomersCreate />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/customers/view" element={<CustomersView />} />
+              <Route path="/customers/create" element={<CustomersCreate />} />
 
-            {/* Products */}
-            <Route path="/totalproducts" element={<TotalProducts />} />
-            <Route path="/products/view" element={<ProductsView />} />
-            <Route path="/products/create" element={<ProductsCreate />} />
+              <Route path="/totalproducts" element={<TotalProducts />} />
+              <Route path="/products/view" element={<ProductsView />} />
+              <Route path="/products/create" element={<ProductsCreate />} />
 
-            {/* Payment */}
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/invoice/view" element={<InvoiceView />} />
-            <Route path="/invoice/create" element={<InvoiceCreate />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/invoice/view" element={<InvoiceView />} />
+              <Route path="/invoice/create" element={<InvoiceCreate />} />
 
-            {/* Installation */}
-            <Route path="/installation" element={<Installation />} />
-            <Route path="/installation/view" element={<InstallationView />} />
-            <Route path="/installation/create" element={<InstallationCreate />} />
-          </Routes>
-        </main>
+              <Route path="/installation" element={<Installation />} />
+              <Route path="/installation/view" element={<InstallationView />} />
+              <Route path="/installation/create" element={<InstallationCreate />} />
+            </Routes>
+          </main>
+
+          {/* Footer */}
+          <Footer />
+        </div>
       </div>
     </Router>
   )

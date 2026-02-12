@@ -17,6 +17,7 @@ import InstallationView from './pages/Installation/InstallationView'
 import InstallationCreate from './pages/Installation/InstallationCreate'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
 
 function App() {
   return (
@@ -28,7 +29,8 @@ function App() {
 
         {/* Right Section */}
         <div className="flex flex-col flex-1">
-          
+
+          <Header />
           {/* Main Content */}
           <main className="flex-1 p-6">
             <Routes>

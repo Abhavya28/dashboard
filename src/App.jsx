@@ -18,19 +18,21 @@ import InstallationCreate from './pages/Installation/InstallationCreate'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
+import { useState } from 'react'
 
 function App() {
+  const [collapsed,setCollapsed] = useState();
   return (
     <Router>
       <div className="flex min-h-screen bg-gray-100">
         
         {/* Sidebar */}
-        <Sidebar />
+        <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
         {/* Right Section */}
         <div className="flex flex-col flex-1">
 
-          <Header />
+          <Header collapsed={collapsed} setCollapsed={setCollapsed}/>
           {/* Main Content */}
           <main className="flex-1 p-6">
             <Routes>
@@ -40,7 +42,7 @@ function App() {
               <Route path="/customers/view" element={<CustomersView />} />
               <Route path="/customers/create" element={<CustomersCreate />} />
 
-              <Route path="/totalproducts" element={<TotalProducts />} />
+              <Route path="/products" element={<TotalProducts />} />
               <Route path="/products/view" element={<ProductsView />} />
               <Route path="/products/create" element={<ProductsCreate />} />
 

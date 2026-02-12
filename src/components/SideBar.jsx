@@ -1,16 +1,201 @@
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
-import { useState } from "react";
+// import {
+//   LayoutDashboard,
+//   Users,
+//   Package,
+//   CreditCard,
+//   Wrench,
+//   ChevronDown,
+//   ChevronRight,
+//   Menu,
+// } from "lucide-react";
+// import { useState } from "react";
+// import { Link, useLocation } from "react-router-dom";
+
+// const Sidebar = ({ collapsed }) => {
+//   const location = useLocation();
+//   const [openSubmenu, setOpenSubmenu] = useState(null);
+//   const [openSidebar, setOpenSidebar] = useState(false);
+
+//   const sidebarLinks = [
+//     {
+//       title: "Dashboards",
+//       icon: <LayoutDashboard size={18} />,
+//       submenu: [{ name: "CRM", path: "/" }],
+//     },
+//     {
+//       title: "Customers",
+//       icon: <Users size={18} />,
+//       submenu: [
+//         { name: "Customers", path: "/customers" },
+//         { name: "Customers View", path: "/customers/view" },
+//         { name: "Customers Create", path: "/customers/create" },
+//       ],
+//     },
+//     {
+//       title: "Products",
+//       icon: <Package size={18} />,
+//       submenu: [
+//         { name: "Total Products", path: "/products" },
+//         { name: "Products View", path: "/products/view" },
+//         { name: "Products Create", path: "/products/create" },
+//       ],
+//     },
+//     {
+//       title: "Payment",
+//       icon: <CreditCard size={18} />,
+//       submenu: [
+//         { name: "Payment", path: "/payment" },
+//         { name: "Invoice View", path: "/invoice/view" },
+//         { name: "Invoice Create", path: "/invoice/create" },
+//       ],
+//     },
+//     {
+//       title: "Installation",
+//       icon: <Wrench size={18} />,
+//       submenu: [
+//         { name: "Installation", path: "/installation" },
+//         { name: "Installation View", path: "/installation/view" },
+//         { name: "Installation Create", path: "/installation/create" },
+//       ],
+//     },
+//   ];
+
+//   return (
+//     <>
+//       {/* Sidebar */}
+//       <aside
+//         className={`
+//     fixed md:static top-0 left-0 z-50
+//     ${collapsed ? "w-20" : "w-64"}
+//     bg-white border-r border-gray-200
+//     p-4 overflow-y-auto min-h-screen
+//     transform transition-all duration-300
+//     ${collapsed ? "-translate-x-full md:translate-x-0" : "translate-x-0"}
+//   `}
+//       >
+//         {/* Logo */}
+//         <div className="p-2 flex items-center justify-center">
+//           {collapsed ? (
+//             <div className="h-10 w-10 bg-hoverblue text-white flex items-center justify-center rounded-lg text-xl font-semibold">
+//               D
+//             </div>
+//           ) : (
+//             <img src="/images/logo-full.png" alt="logo" />
+//           )}
+//         </div>
+
+//         <div className="w-full h-px bg-gray-300 mt-3" />
+
+//         {/* Navigation title */}
+//         {!collapsed && (
+//           <div className="text-xs text-primary font-semibold p-4">
+//             NAVIGATION
+//           </div>
+//         )}
+
+//         {sidebarLinks.map((link, idx) => (
+//           <div key={idx} className="mb-2">
+//             {/* Main Menu Button */}
+//             <button
+//               onClick={() => {
+//                 if (!collapsed) {
+//                   setOpenSubmenu(openSubmenu === idx ? null : idx);
+//                 }
+//               }}
+//               className={`
+//                 w-full flex items-center rounded-md transition duration-200
+//                 ${collapsed ? "justify-center py-3" : "justify-between px-4 py-2"}
+//                 hover:bg-gray-100 text-gray-800 font-medium
+//               `}
+//             >
+//               {/* Icon + Text */}
+//               <div className={`flex items-center ${collapsed ? "" : "gap-3"}`}>
+//                 <span
+//                   className="text-gray-700"
+//                   title={collapsed ? link.title : ""}
+//                 >
+//                   {link.icon}
+//                 </span>
+
+//                 {!collapsed && <span className="text-sm">{link.title}</span>}
+//               </div>
+
+//               {/* Arrow */}
+//               {!collapsed && (
+//                 <span className="text-gray-500">
+//                   {openSubmenu === idx ? <ChevronDown /> : <ChevronRight />}
+//                 </span>
+//               )}
+//             </button>
+
+//             {/* Submenu */}
+//             {!collapsed && openSubmenu === idx && (
+//               <div className="ml-8 mt-1 flex flex-col space-y-1">
+//                 {link.submenu.map((sub) => (
+//                   <Link
+//                     key={sub.name}
+//                     to={sub.path}
+//                     onClick={() => setOpenSidebar(false)}
+//                     className={`
+//                       px-4 py-2 rounded-md text-sm transition
+//                       ${
+//                         location.pathname === sub.path
+//                           ? "bg-gray-300 text-primary font-semibold"
+//                           : "text-gray-700 hover:bg-gray-200"
+//                       }
+//                     `}
+//                   >
+//                     {sub.name}
+//                   </Link>
+//                 ))}
+//               </div>
+//             )}
+//           </div>
+//         ))}
+//       </aside>
+//     </>
+//   );
+// };
+
+// export default Sidebar;
+
+import {
+  LayoutDashboard,
+  Users,
+  Package,
+  CreditCard,
+  Wrench,
+  ChevronDown,
+  ChevronRight,
+} from "lucide-react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ collapsed, setCollapsed }) => {
   const location = useLocation();
   const [openSubmenu, setOpenSubmenu] = useState(null);
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // ✅ detect mobile properly
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const sidebarLinks = [
-    { title: "Dashboards", submenu: [{ name: "CRM", path: "/" }] },
+    {
+      title: "Dashboards",
+      icon: <LayoutDashboard size={18} />,
+      submenu: [{ name: "CRM", path: "/" }],
+    },
     {
       title: "Customers",
+      icon: <Users size={18} />,
       submenu: [
         { name: "Customers", path: "/customers" },
         { name: "Customers View", path: "/customers/view" },
@@ -19,14 +204,16 @@ const Sidebar = () => {
     },
     {
       title: "Products",
+      icon: <Package size={18} />,
       submenu: [
-        { name: "Total Products", path: "/totalproducts" },
+        { name: "Total Products", path: "/products" },
         { name: "Products View", path: "/products/view" },
         { name: "Products Create", path: "/products/create" },
       ],
     },
     {
       title: "Payment",
+      icon: <CreditCard size={18} />,
       submenu: [
         { name: "Payment", path: "/payment" },
         { name: "Invoice View", path: "/invoice/view" },
@@ -35,6 +222,7 @@ const Sidebar = () => {
     },
     {
       title: "Installation",
+      icon: <Wrench size={18} />,
       submenu: [
         { name: "Installation", path: "/installation" },
         { name: "Installation View", path: "/installation/view" },
@@ -45,66 +233,78 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Mobile menu button */}
-      <button
-        className="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded shadow"
-        onClick={() => setOpenSidebar(true)}
-      >
-        <Menu size={20} />
-      </button>
-
-      {/* Overlay */}
-      {openSidebar && (
+      {/* ✅ MOBILE OVERLAY (ONLY LOGIC ADD, NO UI CHANGE) */}
+      {isMobile && !collapsed && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"
-          onClick={() => setOpenSidebar(false)}
-        ></div>
+          className="fixed inset-0 bg-black/30 z-40"
+          onClick={() => setCollapsed(true)}
+        />
       )}
 
       {/* Sidebar */}
       <aside
         className={`
           fixed md:static top-0 left-0 z-50
-          w-64 bg-white border-r border-gray-200
+          ${collapsed ? "w-20" : "w-64"}
+          bg-white border-r border-gray-200
           p-4 overflow-y-auto min-h-screen
-          transform transition-transform duration-300
-          ${openSidebar ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
+          transform transition-all duration-300
+          ${isMobile && collapsed ? "-translate-x-full" : "translate-x-0"}
         `}
       >
-
         {/* Logo */}
         <div className="p-2 flex items-center justify-center">
-          <img src="/images/logo-full.png" alt="logo" />
+          {collapsed ? (
+            <div className="h-10 w-10 bg-hoverblue text-white flex items-center justify-center rounded-lg text-xl font-semibold">
+              D
+            </div>
+          ) : (
+            <img src="/images/logo-full.png" alt="logo" />
+          )}
         </div>
 
-        <div className="w-full h-px bg-gray-300 mt-3"></div>
+        <div className="w-full h-px bg-gray-300 mt-3" />
 
-        <div className="text-xs text-primary font-semibold p-4">
-          NAVIGATION
-        </div>
+        {!collapsed && (
+          <div className="text-xs text-primary font-semibold p-4">
+            NAVIGATION
+          </div>
+        )}
 
         {sidebarLinks.map((link, idx) => (
-          <div key={idx} className="mb-3">
+          <div key={idx} className="mb-2">
+            {/* Main Menu */}
             <button
-              onClick={() =>
-                setOpenSubmenu(openSubmenu === idx ? null : idx)
-              }
-              className="w-full flex justify-between items-center px-4 py-2 rounded-md hover:bg-gray-100 text-left font-medium text-gray-800 transition duration-200"
+              onClick={() => {
+                if (!collapsed) {
+                  setOpenSubmenu(openSubmenu === idx ? null : idx);
+                }
+              }}
+              className={`
+                w-full flex items-center rounded-md transition duration-200
+                ${collapsed ? "justify-center py-3" : "justify-between px-4 py-2"}
+                hover:bg-gray-100 text-gray-800 font-medium
+              `}
             >
-              {link.title}
-              <span className="text-gray-500">
-                {openSubmenu === idx ? <ChevronDown /> : <ChevronRight />}
-              </span>
+              <div className={`flex items-center ${collapsed ? "" : "gap-3"}`}>
+                {link.icon}
+                {!collapsed && <span className="text-sm">{link.title}</span>}
+              </div>
+
+              {!collapsed &&
+                (openSubmenu === idx ? <ChevronDown /> : <ChevronRight />)}
             </button>
 
-            {openSubmenu === idx && (
-              <div className="ml-4 mt-1 flex flex-col space-y-1">
+            {/* Submenu */}
+            {!collapsed && openSubmenu === idx && (
+              <div className="ml-8 mt-1 flex flex-col space-y-1">
                 {link.submenu.map((sub) => (
                   <Link
                     key={sub.name}
                     to={sub.path}
-                    onClick={() => setOpenSidebar(false)}
+                    onClick={() => {
+                      if (isMobile) setCollapsed(true);
+                    }}
                     className={`
                       px-4 py-2 rounded-md text-sm transition
                       ${

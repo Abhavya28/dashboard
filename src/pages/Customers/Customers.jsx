@@ -128,125 +128,128 @@ const Customers = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6">
-      <div className="overflow-x-auto bg-white shadow-md rounded-xl">
-        <table className="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
-          <thead className="bg-gray-50">
-            <tr className="text-left text-sm text-gray-700">
-              <th className="p-4">
-                <input
-                  type="checkbox"
-                  className="w-5 h-5 rounded bg-greytone checked:bg-hoverblue cursor-pointer"
-                />
-              </th>
-              <th className="p-4">CUSTOMERS</th>
-              <th className="p-4">EMAIL</th>
-              <th className="p-4">GROUP</th>
-              <th className="p-4">PHONE</th>
-              <th className="p-4">DATE</th>
-              <th className="p-4">STATUS</th>
-              <th className="p-4 text-center">ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody className="text-gray-700">
-            {customersData.map((customer) => (
-              <tr
-                key={customer.id}
-                className="border-b hover:bg-gray-50 transition"
-              >
-                {/* Checkbox */}
-                <td className="p-4">
-                  <input
-                    type="checkbox"
-                    className="w-5 h-5 rounded bg-greytone checked:bg-hoverblue cursor-pointer"
-                  />
-                </td>
+    <div className="p-3 sm:p-6">
+      <div className="bg-white shadow-md rounded-xl overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="min-w-[1000px] w-full border border-gray-200">
+            <thead className="bg-gray-50">
+              <tr className="text-left text-xs sm:text-sm text-gray-700">
+                <th className="p-3 sm:p-4">
+                  <input type="checkbox" className="w-4 h-4 cursor-pointer" />
+                </th>
+                <th className="p-3 sm:p-4">CUSTOMERS</th>
+                <th className="p-3 sm:p-4">EMAIL</th>
+                <th className="p-3 sm:p-4">GROUP</th>
+                <th className="p-3 sm:p-4">PHONE</th>
+                <th className="p-3 sm:p-4">DATE</th>
+                <th className="p-3 sm:p-4">STATUS</th>
+                <th className="p-3 sm:p-4 text-center">ACTIONS</th>
+              </tr>
+            </thead>
 
-                {/* Customer */}
-                <td className="p-4 flex items-center gap-3">
-                  <img
-                    src={customer.img}
-                    alt={customer.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                  <p className="font-semibold">{customer.name}</p>
-                </td>
+            <tbody className="text-xs sm:text-sm text-gray-700">
+              {customersData.map((customer) => (
+                <tr
+                  key={customer.id}
+                  className="border-b hover:bg-gray-50 transition"
+                >
+                  {/* Checkbox */}
+                  <td className="p-3 sm:p-4">
+                    <input type="checkbox" className="w-4 h-4 cursor-pointer" />
+                  </td>
 
-                {/* Email */}
-                <td className="p-4">{customer.email}</td>
+                  {/* Customer */}
+                  <td className="p-3 sm:p-4">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={customer.img}
+                        alt={customer.name}
+                        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full"
+                      />
+                      <p className="font-semibold whitespace-nowrap">
+                        {customer.name}
+                      </p>
+                    </div>
+                  </td>
 
-                {/* Group */}
-                <td className="p-4 max-w-[140px]">
-                  <div className="max-h-20 overflow-y-auto rounded-lg border border-gray-200 p-1 space-y-1">
-                    {customer.tags.map((tag, i) => (
-                      <div
-                        key={i}
-                        className="text-sm px-2 py-1 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-default"
-                      >
-                        {tag}
-                      </div>
-                    ))}
-                  </div>
-                </td>
+                  {/* Email */}
+                  <td className="p-3 sm:p-4 whitespace-nowrap">
+                    {customer.email}
+                  </td>
 
-                {/* Phone */}
-                <td className="p-4">{customer.phone}</td>
-
-                {/* Date */}
-                <td className="p-4 text-sm text-gray-500">
-                  {customer.createdAt}
-                </td>
-
-                {/* Status Dropdown */}
-                <td className="p-4 relative">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleDropdown(customer.id);
-                    }}
-                    className={`w-full text-left px-3 py-2 rounded border ${
-                      statuses[customer.id] === "Active"
-                        ? "border-green-500 text-green-600"
-                        : statuses[customer.id] === "Inactive"
-                          ? "border-yellow-500 text-yellow-600"
-                          : "border-red-500 text-red-600"
-                    }`}
-                  >
-                    {statuses[customer.id]}
-                  </button>
-
-                  {openDropdown[customer.id] && (
-                    <div className="absolute mt-1 w-full rounded border bg-white shadow z-20">
-                      {statusOptions.map((status) => (
+                  {/* Group */}
+                  <td className="p-3 sm:p-4">
+                    <div className="max-h-16 sm:max-h-20 overflow-y-auto border rounded-lg p-1 space-y-1">
+                      {customer.tags.map((tag, i) => (
                         <div
-                          key={status}
-                          className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
-                          onClick={() =>
-                            handleStatusChange(customer.id, status)
-                          }
+                          key={i}
+                          className="px-2 py-1 rounded bg-gray-100 text-gray-700 text-xs"
                         >
-                          {status}
+                          {tag}
                         </div>
                       ))}
                     </div>
-                  )}
-                </td>
+                  </td>
 
-                {/* Actions */}
-                <td className="p-4 text-center">
-                  <div className="flex justify-center gap-3">
-                    <div className="text-gray-500 hover:text-hoverblue rounded-full border-2 border-greytone h-8 w-8 flex items-center justify-center">
-                      <Eye className="h-6 w-6"/>
+                  {/* Phone */}
+                  <td className="p-3 sm:p-4 whitespace-nowrap">
+                    {customer.phone}
+                  </td>
+
+                  {/* Date */}
+                  <td className="p-3 sm:p-4 text-gray-500 whitespace-nowrap">
+                    {customer.createdAt}
+                  </td>
+
+                  {/* Status */}
+                  <td className="p-3 sm:p-4 relative">
+                    <button
+                      onClick={() => toggleDropdown(customer.id)}
+                      className={`px-3 py-2 rounded border text-xs sm:text-sm w-full
+                        ${
+                          statuses[customer.id] === "Active"
+                            ? "border-green-500 text-green-600"
+                            : statuses[customer.id] === "Inactive"
+                              ? "border-yellow-500 text-yellow-600"
+                              : "border-red-500 text-red-600"
+                        }`}
+                    >
+                      {statuses[customer.id]}
+                    </button>
+
+                    {openDropdown[customer.id] && (
+                      <div className="absolute left-0 mt-1 w-full bg-white border rounded shadow z-20">
+                        {statusOptions.map((status) => (
+                          <div
+                            key={status}
+                            onClick={() =>
+                              handleStatusChange(customer.id, status)
+                            }
+                            className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            {status}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </td>
+
+                  {/* Actions */}
+                  <td className="p-3 sm:p-4">
+                    <div className="flex justify-center gap-2">
+                      <button className="h-8 w-8 border rounded-full flex items-center justify-center hover:text-hoverblue">
+                        <Eye size={18} />
+                      </button>
+                      <button className="h-8 w-8 border rounded-full flex items-center justify-center hover:text-hoverblue">
+                        <Ellipsis size={18} />
+                      </button>
                     </div>
-                    <div className="text-gray-500 hover:text-hoverblue rounded-full border-2 border-greytone h-8 w-8 flex items-center justify-center">
-                      <Ellipsis className="h-6 w-6"/>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

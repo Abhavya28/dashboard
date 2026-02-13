@@ -161,7 +161,7 @@ const Header = ({ collapsed, setCollapsed }) => {
                 SAVE DRAFT
               </Button>
               <Button
-                className="bg-hoverblue text-white text-xs flex items-center justify-center"
+                className="bg-hoverblue text-white text-xs flex items-center justify-center hover:bg-hoverblue"
                 size="sm"
               >
                 <Plus className="h-4 w-4" />

@@ -1,8 +1,6 @@
 import {
   ActivityIcon,
   Airplay,
-  AlignLeft,
-  ArrowBigLeft,
   ArrowLeft,
   ArrowRight,
   Briefcase,
@@ -11,7 +9,6 @@ import {
   Dot,
   EllipsisVertical,
   FileText,
-  LineChart,
   Star,
 } from "lucide-react";
 import React, { Activity } from "react";

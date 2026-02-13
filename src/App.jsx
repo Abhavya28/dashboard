@@ -18,10 +18,17 @@ import InstallationCreate from './pages/Installation/InstallationCreate'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [collapsed,setCollapsed] = useState();
+  const [collapsed, setCollapsed] = useState(() => {
+    const saved = localStorage.getItem("sidebar-collapsed");
+    return saved === "true";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("sidebar-collapsed", collapsed);
+  }, [collapsed]);
   return (
     <Router>
       <div className="flex min-h-screen bg-gray-100">

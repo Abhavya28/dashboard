@@ -10,6 +10,11 @@ export default {
         hoverblue: "var(--color-hoverblue)",
       },
     },
+    extend: {
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui"],
+      },
+    },
   },
   plugins: [],
 };

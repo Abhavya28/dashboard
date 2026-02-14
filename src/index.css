@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-    --color-primary: #283C50;
-    --color-greytone :#e9ecef;
-    --color-darkgreytone:#64748B;
+:root {
+  --color-primary: #283c50;
+  --color-greytone: #e9ecef;
+  --color-darkgreytone: #64748b;
 
-    --color-hoverblue:#3454D1;
+  --color-hoverblue: #3454d1;
+}
 
-
+body {
+  font-family: Inter, ui-sans-serif, system-ui;
 }

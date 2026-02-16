@@ -94,7 +94,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         <div className="p-2 flex items-center justify-center">
           {collapsed ? (
             <div className="h-10 w-10 bg-hoverblue text-white flex items-center justify-center rounded-lg text-xl font-semibold">
-              D
+              <img src="/icon.png" />
             </div>
           ) : (
             <img src="/images/logo-full.png" alt="logo" />
